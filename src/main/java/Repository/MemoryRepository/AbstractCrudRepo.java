@@ -5,6 +5,8 @@ import Repository.Repo;
 import Validator.IValidator;
 import Exceptions.ValidatorException;
 import java.util.*;
+import java.io.IOException;
+
 public abstract class AbstractCrudRepo<ID,E extends HasId<ID>> implements Repo<ID,E> {
     Map<ID,E> entityes;
     IValidator<E> validator;

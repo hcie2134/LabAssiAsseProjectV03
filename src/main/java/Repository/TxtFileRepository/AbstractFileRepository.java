@@ -49,17 +49,21 @@ public abstract class AbstractFileRepository<ID,E extends HasId<ID>> extends Abs
     public Iterable<E> findAll() {
         return super.findAll();
     }
+
     @Override
     public E save(E entity) throws ValidatorException {
-        try{
             E e=super.save(entity);
            // writeToFile(entity);
+        try{
             writeAll();
-            return e;
+        } catch (IOException ex){
+            throw new ValidatorException("The file "+filename+" cannot be found!\n");
         }
-        catch (IOException ex){
-            throw new RepositoryException("The file "+filename+" cannot be found!\n");
-        }
+//        catch(ValidatorException ex2){
+//            throw new ValidatorException(ex2.getMessage());
+//        }
+
+        return e;
     }
 
     @Override
